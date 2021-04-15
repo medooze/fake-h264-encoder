@@ -1,0 +1,30 @@
+{
+  "name": "fake-h264-encoder",
+  "version": "1.6.0",
+  "description": "Video codecs for Media and RTMP servers",
+  "main": "index.js",
+  "scripts": {
+    "configure": "node-gyp configure",
+    "swig": "swig -javascript -node -c++ src/fake-h264-encoder.i",
+    "build": "node-gyp build --jobs=max",
+    "install": "test -f build/Release/medooze-fake-h264-encoder.node || (node-gyp configure && node-gyp rebuild --jobs=max)",
+    "package": "tar cvzf build/medooze-fake-h264-encoder.tgz  `([ \"$(uname)\" = 'Darwin' ] && echo \"-s |^|medooze-fake-h264-encoder/|\") || echo \" --transform=flags=r;s|^|medooze-fake-h264-encoder/|\"` media-server/src/* media-server/include/* media-server/ext/libdatachannels/src/* media-server/ext/crc32c/* lib/* package.json index.js  binding.gyp  README.md src",
+    "dist": "node-gyp configure && node-gyp build --jobs=max && mkdir -p dist && tar cvzf dist/medooze-fake-h264-encoder-`node -e 'console.log(require(\"./package.json\").version)'`.tgz `([ \"$(uname)\" = 'Darwin' ] && echo \"-s |^|medooze-fake-h264-encoder/|\") || echo \" --transform=flags=r;s|^|medooze-fake-h264-encoder/|\"` package.json index.js   README.md lib/* build/Release/medooze-fake-h264-encoder.node",
+    "test": "tap tests/*.js --cov"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/medooze/fake-h264-encoder-node.git"
+  },
+  "author": "Sergio Garcia Murillo @ Medooze",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/medooze/fake-h264-encoder/issues"
+  },
+  "homepage": "https://github.com/medooze/fake-h264-encoder#readme",
+  "dependencies": {
+    "lfsr": "0.0.3",
+    "nan": "^2.12.1",
+    "uuid": "^3.3.2"
+  }
+}
