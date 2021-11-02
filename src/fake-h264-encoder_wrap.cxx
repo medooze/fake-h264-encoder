@@ -1684,6 +1684,10 @@ public:
 		FakeH264VideoEncoderWorker::SendFPU();
 		return 1;
 	}
+	virtual int Reset(DWORD ssrc)
+	{
+		return 1;
+	}
 };
 
 

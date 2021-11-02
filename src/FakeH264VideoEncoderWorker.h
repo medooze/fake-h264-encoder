@@ -7,7 +7,7 @@
 #include "config.h"
 #include "video.h"
 
-class FakeH264VideoEncoderWorker
+class FakeH264VideoEncoderWorker 
 {
 public:
 	FakeH264VideoEncoderWorker();
