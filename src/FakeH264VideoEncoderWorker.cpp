@@ -16,12 +16,6 @@
 
 FakeH264VideoEncoderWorker::FakeH264VideoEncoderWorker() 
 {
-	Logger::EnableLog(true);
-	//Enable debug
-	Logger::EnableDebug(true);
-	//Enable debug
-	Logger::EnableUltraDebug(true);
-
 	//Create objects
 	pthread_mutex_init(&mutex,NULL);
 	pthread_cond_init(&cond,NULL);
@@ -421,7 +415,7 @@ int FakeH264VideoEncoderWorker::Encode()
 		auto now = getDifTime(&first)/1000;
 		//Set frame timestamp
 		videoFrame->SetTimestamp(now*90);
-		videoFrame->SetTime(now);
+		videoFrame->SetTime(getTime()/1000);
 		//Set dudation
 		videoFrame->SetDuration(frameTime*90000/1E6);
 		
