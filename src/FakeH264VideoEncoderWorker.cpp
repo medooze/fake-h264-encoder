@@ -72,6 +72,24 @@ void * FakeH264VideoEncoderWorker::startEncoding(void *par)
 	return NULL;
 }
 
+bool FakeH264VideoEncoderWorker::SetThreadName( const std::string& name)
+{
+#if defined(__linux__)
+	return !pthread_setname_np(thread, name.c_str());
+#else
+	return false;
+#endif
+}
+
+bool FakeH264VideoEncoderWorker::SetPriority(int priority)
+{
+	sched_param param = {
+		.sched_priority = priority
+	};
+	return !pthread_setschedparam(thread, priority ? SCHED_FIFO : SCHED_OTHER, &param);
+}
+
+
 int FakeH264VideoEncoderWorker::Stop()
 {
 	Log(">FakeH264VideoEncoderWorker::Stop()\n");

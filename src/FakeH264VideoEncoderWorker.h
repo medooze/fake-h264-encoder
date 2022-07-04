@@ -20,6 +20,9 @@ public:
 	bool AddListener(MediaFrame::Listener *listener);
 	bool RemoveListener(MediaFrame::Listener *listener);
 	void SendFPU();
+
+	bool SetThreadName(const std::string& name);
+	bool SetPriority(int priority);
 	
 	bool IsEncoding() { return encoding;	}
 	

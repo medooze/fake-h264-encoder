@@ -1347,8 +1347,9 @@ fail: ;
 #define SWIGTYPE_p_RTPReceiver swig_types[6]
 #define SWIGTYPE_p_TimeService swig_types[7]
 #define SWIGTYPE_p_char swig_types[8]
-static swig_type_info *swig_types[10];
-static swig_module_info swig_module = {swig_types, 9, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__string swig_types[9]
+static swig_type_info *swig_types[11];
+static swig_module_info swig_module = {swig_types, 10, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -1939,6 +1940,83 @@ fail:
 }
 
 
+static SwigV8ReturnValue _wrap_FakeH264VideoEncoderWorkerFacade_SetThreadName(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  SWIGV8_VALUE jsresult;
+  FakeH264VideoEncoderWorkerFacade *arg1 = (FakeH264VideoEncoderWorkerFacade *) 0 ;
+  std::string *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  bool result;
+  
+  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_FakeH264VideoEncoderWorkerFacade_SetThreadName.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_FakeH264VideoEncoderWorkerFacade, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FakeH264VideoEncoderWorkerFacade_SetThreadName" "', argument " "1"" of type '" "FakeH264VideoEncoderWorkerFacade *""'"); 
+  }
+  arg1 = reinterpret_cast< FakeH264VideoEncoderWorkerFacade * >(argp1);
+  res2 = SWIG_ConvertPtr(args[0], &argp2, SWIGTYPE_p_std__string,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FakeH264VideoEncoderWorkerFacade_SetThreadName" "', argument " "2"" of type '" "std::string const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "FakeH264VideoEncoderWorkerFacade_SetThreadName" "', argument " "2"" of type '" "std::string const &""'"); 
+  }
+  arg2 = reinterpret_cast< std::string * >(argp2);
+  result = (bool)(arg1)->SetThreadName((std::string const &)*arg2);
+  jsresult = SWIG_From_bool(static_cast< bool >(result));
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_FakeH264VideoEncoderWorkerFacade_SetPriority(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  SWIGV8_VALUE jsresult;
+  FakeH264VideoEncoderWorkerFacade *arg1 = (FakeH264VideoEncoderWorkerFacade *) 0 ;
+  int arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  bool result;
+  
+  if(args.Length() != 1) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_FakeH264VideoEncoderWorkerFacade_SetPriority.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_FakeH264VideoEncoderWorkerFacade, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FakeH264VideoEncoderWorkerFacade_SetPriority" "', argument " "1"" of type '" "FakeH264VideoEncoderWorkerFacade *""'"); 
+  }
+  arg1 = reinterpret_cast< FakeH264VideoEncoderWorkerFacade * >(argp1);
+  ecode2 = SWIG_AsVal_int(args[0], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FakeH264VideoEncoderWorkerFacade_SetPriority" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  result = (bool)(arg1)->SetPriority(arg2);
+  jsresult = SWIG_From_bool(static_cast< bool >(result));
+  
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
 static void _wrap_delete_FakeH264VideoEncoderWorkerFacade(const v8::WeakCallbackInfo<SWIGV8_Proxy> &data) {
   SWIGV8_Proxy *proxy = data.GetParameter();
   
@@ -2082,6 +2160,7 @@ static swig_type_info _swigt__p_RTPIncomingMediaStream = {"_p_RTPIncomingMediaSt
 static swig_type_info _swigt__p_RTPReceiver = {"_p_RTPReceiver", "RTPReceiver *|p_RTPReceiver", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_TimeService = {"_p_TimeService", "TimeService *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__string = {"_p_std__string", "std::string *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_DWORD,
@@ -2093,6 +2172,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_RTPReceiver,
   &_swigt__p_TimeService,
   &_swigt__p_char,
+  &_swigt__p_std__string,
 };
 
 static swig_cast_info _swigc__p_DWORD[] = {  {&_swigt__p_DWORD, 0, 0, 0},{0, 0, 0, 0}};
@@ -2104,6 +2184,7 @@ static swig_cast_info _swigc__p_RTPIncomingMediaStream[] = {  {&_swigt__p_RTPInc
 static swig_cast_info _swigc__p_RTPReceiver[] = {  {&_swigt__p_RTPReceiver, 0, 0, 0},  {&_swigt__p_FakeH264VideoEncoderWorkerFacade, _p_FakeH264VideoEncoderWorkerFacadeTo_p_RTPReceiver, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_TimeService[] = {  {&_swigt__p_TimeService, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__string[] = {  {&_swigt__p_std__string, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_DWORD,
@@ -2115,6 +2196,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_RTPReceiver,
   _swigc__p_TimeService,
   _swigc__p_char,
+  _swigc__p_std__string,
 };
 
 
@@ -2479,6 +2561,8 @@ SWIGV8_AddMemberFunction(_exports_FakeH264VideoEncoderWorkerFacade_class, "Start
 SWIGV8_AddMemberFunction(_exports_FakeH264VideoEncoderWorkerFacade_class, "Stop", _wrap_FakeH264VideoEncoderWorkerFacade_Stop);
 SWIGV8_AddMemberFunction(_exports_FakeH264VideoEncoderWorkerFacade_class, "End", _wrap_FakeH264VideoEncoderWorkerFacade_End);
 SWIGV8_AddMemberFunction(_exports_FakeH264VideoEncoderWorkerFacade_class, "IsEncoding", _wrap_FakeH264VideoEncoderWorkerFacade_IsEncoding);
+SWIGV8_AddMemberFunction(_exports_FakeH264VideoEncoderWorkerFacade_class, "SetThreadName", _wrap_FakeH264VideoEncoderWorkerFacade_SetThreadName);
+SWIGV8_AddMemberFunction(_exports_FakeH264VideoEncoderWorkerFacade_class, "SetPriority", _wrap_FakeH264VideoEncoderWorkerFacade_SetPriority);
 
 
   /* setup inheritances */

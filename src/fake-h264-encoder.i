@@ -81,6 +81,8 @@ struct FakeH264VideoEncoderWorkerFacade : public RTPReceiver
 	int Stop();
 	int End();
 	int IsEncoding();
+	bool SetThreadName(const std::string& name);
+	bool SetPriority(int priority);
 };
 
 class MedoozeFakeH264EncoderModule
