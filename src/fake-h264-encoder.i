@@ -47,9 +47,21 @@ public:
 
 %}
 
+%{
+using MediaFrameListener = MediaFrame::Listener;
+%}
 %nodefaultctor MediaFrameListener;
 %nodefaultdtor MediaFrameListener;
 struct MediaFrameListener {};
+
+%{
+using RTPIncomingMediaStreamListener = RTPIncomingMediaStream::Listener;
+%}
+%nodefaultctor RTPIncomingMediaStreamListener;
+%nodefaultdtor RTPIncomingMediaStreamListener;
+struct RTPIncomingMediaStreamListener
+{
+};
 
 %nodefaultctor RTPIncomingMediaStream;
 %nodefaultdtor RTPIncomingMediaStream;
@@ -57,6 +69,10 @@ struct RTPIncomingMediaStream
 {
 	DWORD GetMediaSSRC();
 	TimeService& GetTimeService();
+
+	void AddListener(RTPIncomingMediaStreamListener* listener);
+	void RemoveListener(RTPIncomingMediaStreamListener* listener);
+	void Mute(bool muting);
 };
 
 struct MediaFrameListenerBridge : 
