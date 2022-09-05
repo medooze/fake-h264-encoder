@@ -4,8 +4,6 @@
 #include "FakeH264VideoEncoderWorker.h"
 #include "MediaFrameListenerBridge.h"
 
-using MediaFrameListener =  MediaFrame::Listener;
-
 class MedoozeFakeH264EncoderModule
 {
 public:
@@ -76,8 +74,8 @@ struct RTPIncomingMediaStream
 };
 
 struct MediaFrameListenerBridge : 
-	public MediaFrameListener,
-	public RTPIncomingMediaStream
+	public RTPIncomingMediaStream,
+	public MediaFrameListener
 {
 	MediaFrameListenerBridge(int ssrc, bool smooth);
 };

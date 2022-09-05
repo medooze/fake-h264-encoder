@@ -1376,8 +1376,6 @@ static swig_module_info swig_module = {swig_types, 11, 0, 0, 0, 0};
 #include "FakeH264VideoEncoderWorker.h"
 #include "MediaFrameListenerBridge.h"
 
-using MediaFrameListener =  MediaFrame::Listener;
-
 class MedoozeFakeH264EncoderModule
 {
 public:
@@ -2705,20 +2703,20 @@ SWIGV8_AddMemberFunction(_exports_FakeH264VideoEncoderWorkerFacade_class, "SetPr
 
 
   /* setup inheritances */
-  if (SWIGTYPE_p_MediaFrameListener->clientdata && !(static_cast<SWIGV8_ClientData *>(SWIGTYPE_p_MediaFrameListener->clientdata)->class_templ.IsEmpty()))
+  if (SWIGTYPE_p_RTPIncomingMediaStream->clientdata && !(static_cast<SWIGV8_ClientData *>(SWIGTYPE_p_RTPIncomingMediaStream->clientdata)->class_templ.IsEmpty()))
 {
   _exports_MediaFrameListenerBridge_class->Inherit(
     v8::Local<v8::FunctionTemplate>::New(
       v8::Isolate::GetCurrent(),
-      static_cast<SWIGV8_ClientData *>(SWIGTYPE_p_MediaFrameListener->clientdata)->class_templ)
+      static_cast<SWIGV8_ClientData *>(SWIGTYPE_p_RTPIncomingMediaStream->clientdata)->class_templ)
     );
   
 #ifdef SWIGRUNTIME_DEBUG
-  printf("Inheritance successful _exports_MediaFrameListenerBridge _MediaFrameListener\n");
+  printf("Inheritance successful _exports_MediaFrameListenerBridge _RTPIncomingMediaStream\n");
 #endif
 } else {
 #ifdef SWIGRUNTIME_DEBUG
-  printf("Unable to inherit baseclass, it didn't exist _exports_MediaFrameListenerBridge _MediaFrameListener\n");
+  printf("Unable to inherit baseclass, it didn't exist _exports_MediaFrameListenerBridge _RTPIncomingMediaStream\n");
 #endif
 }
 if (SWIGTYPE_p_RTPReceiver->clientdata && !(static_cast<SWIGV8_ClientData *>(SWIGTYPE_p_RTPReceiver->clientdata)->class_templ.IsEmpty()))
