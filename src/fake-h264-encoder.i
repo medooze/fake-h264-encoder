@@ -50,7 +50,9 @@ using MediaFrameListener = MediaFrame::Listener;
 %}
 %nodefaultctor MediaFrameListener;
 %nodefaultdtor MediaFrameListener;
-struct MediaFrameListener {};
+struct MediaFrameListener
+{
+};
 
 %{
 using RTPIncomingMediaStreamListener = RTPIncomingMediaStream::Listener;
@@ -73,12 +75,36 @@ struct RTPIncomingMediaStream
 	void Mute(bool muting);
 };
 
+%nodefaultctor MediaFrameListenerBridge;
 struct MediaFrameListenerBridge : 
 	public RTPIncomingMediaStream,
 	public MediaFrameListener
 {
-	MediaFrameListenerBridge(int ssrc, bool smooth);
+	MediaFrameListenerBridge(TimeService& timeService, int ssrc);
+
+	DWORD numFrames;
+	DWORD numPackets;
+	DWORD numFramesDelta;
+	DWORD numPacketsDelta;
+	DWORD totalBytes;
+	DWORD bitrate;
+	DWORD minWaitedTime;
+	DWORD maxWaitedTime;
+	DWORD avgWaitedTime;
+	void Update();
+	
+	void AddMediaListener(MediaFrameListener* listener);
+	void RemoveMediaListener(MediaFrameListener* listener);
+	void Stop();
 };
+//SWIG only supports single class inheritance
+MediaFrameListener* MediaFrameListenerBridgeToMediaFrameListener(MediaFrameListenerBridge* bridge);
+%{
+MediaFrameListener* MediaFrameListenerBridgeToMediaFrameListener(MediaFrameListenerBridge* bridge)
+{
+	return (MediaFrameListener*)bridge;
+}
+%}
 
 %nodefaultctor RTPReceiver;
 %nodefaultdtor RTPReceiver;
