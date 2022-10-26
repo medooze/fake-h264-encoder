@@ -1737,13 +1737,16 @@ static SwigV8ReturnValue _wrap_new_MediaFrameListenerBridge(const SwigV8Argument
   SWIGV8_OBJECT self = args.Holder();
   TimeService *arg1 = 0 ;
   int arg2 ;
+  bool arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   int val2 ;
   int ecode2 = 0 ;
+  bool val3 ;
+  int ecode3 = 0 ;
   MediaFrameListenerBridge *result;
   if(self->InternalFieldCount() < 1) SWIG_exception_fail(SWIG_ERROR, "Illegal call of constructor _wrap_new_MediaFrameListenerBridge.");
-  if(args.Length() != 2) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_MediaFrameListenerBridge.");
+  if(args.Length() != 3) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_MediaFrameListenerBridge.");
   res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_TimeService,  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_MediaFrameListenerBridge" "', argument " "1"" of type '" "TimeService &""'"); 
@@ -1757,7 +1760,13 @@ static SwigV8ReturnValue _wrap_new_MediaFrameListenerBridge(const SwigV8Argument
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_MediaFrameListenerBridge" "', argument " "2"" of type '" "int""'");
   } 
   arg2 = static_cast< int >(val2);
-  result = (MediaFrameListenerBridge *)new MediaFrameListenerBridge(*arg1,arg2);
+  ecode3 = SWIG_AsVal_bool(args[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_MediaFrameListenerBridge" "', argument " "3"" of type '" "bool""'");
+  } 
+  arg3 = static_cast< bool >(val3);
+  result = (MediaFrameListenerBridge *)new MediaFrameListenerBridge(*arg1,arg2,arg3);
+  
   
   
   
@@ -2852,6 +2861,34 @@ fail:
 }
 
 
+static SwigV8ReturnValue _wrap_FakeH264VideoEncoderWorkerFacade_GetTimeService(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  SWIGV8_VALUE jsresult;
+  FakeH264VideoEncoderWorkerFacade *arg1 = (FakeH264VideoEncoderWorkerFacade *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  TimeService *result = 0 ;
+  
+  if(args.Length() != 0) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_FakeH264VideoEncoderWorkerFacade_GetTimeService.");
+  
+  res1 = SWIG_ConvertPtr(args.Holder(), &argp1,SWIGTYPE_p_FakeH264VideoEncoderWorkerFacade, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FakeH264VideoEncoderWorkerFacade_GetTimeService" "', argument " "1"" of type '" "FakeH264VideoEncoderWorkerFacade *""'"); 
+  }
+  arg1 = reinterpret_cast< FakeH264VideoEncoderWorkerFacade * >(argp1);
+  result = (TimeService *) &(arg1)->GetTimeService();
+  jsresult = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_TimeService, 0 |  0 );
+  
+  
+  SWIGV8_RETURN(jsresult);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
 static void _wrap_delete_FakeH264VideoEncoderWorkerFacade(const v8::WeakCallbackInfo<SWIGV8_Proxy> &data) {
   SWIGV8_Proxy *proxy = data.GetParameter();
   
@@ -3425,6 +3462,7 @@ SWIGV8_AddMemberFunction(_exports_FakeH264VideoEncoderWorkerFacade_class, "End",
 SWIGV8_AddMemberFunction(_exports_FakeH264VideoEncoderWorkerFacade_class, "IsEncoding", _wrap_FakeH264VideoEncoderWorkerFacade_IsEncoding);
 SWIGV8_AddMemberFunction(_exports_FakeH264VideoEncoderWorkerFacade_class, "SetThreadName", _wrap_FakeH264VideoEncoderWorkerFacade_SetThreadName);
 SWIGV8_AddMemberFunction(_exports_FakeH264VideoEncoderWorkerFacade_class, "SetPriority", _wrap_FakeH264VideoEncoderWorkerFacade_SetPriority);
+SWIGV8_AddMemberFunction(_exports_FakeH264VideoEncoderWorkerFacade_class, "GetTimeService", _wrap_FakeH264VideoEncoderWorkerFacade_GetTimeService);
 
 
   /* setup inheritances */

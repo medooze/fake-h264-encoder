@@ -80,7 +80,7 @@ struct MediaFrameListenerBridge :
 	public RTPIncomingMediaStream,
 	public MediaFrameListener
 {
-	MediaFrameListenerBridge(TimeService& timeService, int ssrc);
+	MediaFrameListenerBridge(TimeService& timeService, int ssrc, bool smooth);
 
 	DWORD numFrames;
 	DWORD numPackets;
@@ -123,6 +123,7 @@ struct FakeH264VideoEncoderWorkerFacade : public RTPReceiver
 	int IsEncoding();
 	bool SetThreadName(const std::string& name);
 	bool SetPriority(int priority);
+	TimeService& GetTimeService();
 };
 
 class MedoozeFakeH264EncoderModule

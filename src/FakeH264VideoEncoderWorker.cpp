@@ -8,25 +8,24 @@
 #include "FakeH264VideoEncoderWorker.h"
 #include "log.h"
 #include "tools.h"
-#include "acumulator.h"
+
 #include "VideoCodecFactory.h"
 
 #include "h264/h264.h"
 #include "fake264.h"
 
-FakeH264VideoEncoderWorker::FakeH264VideoEncoderWorker() 
+FakeH264VideoEncoderWorker::FakeH264VideoEncoderWorker() :
+	bitrateAcu(1000),
+	fpsAcu(1000)
 {
-	//Create objects
-	pthread_mutex_init(&mutex,NULL);
-	pthread_cond_init(&cond,NULL);
+	//Create unscheduled encoding timer
+	encodingTimer = loop.CreateTimer([&](std::chrono::milliseconds now) {
+		Encode(now);
+	});
 }
-
 FakeH264VideoEncoderWorker::~FakeH264VideoEncoderWorker()
 {
 	End();
-	//Clean object
-	pthread_mutex_destroy(&mutex);
-	pthread_cond_destroy(&cond);
 }
 
 int FakeH264VideoEncoderWorker::SetBitrate(int fps,int bitrate)
@@ -37,6 +36,9 @@ int FakeH264VideoEncoderWorker::SetBitrate(int fps,int bitrate)
 	this->bitrate	  = bitrate;
 	this->fps	  = fps;
 
+	//Reschedule encoding timer if already started to encode
+	if (encodingTimer->IsScheduled())
+		encodingTimer->Repeat(1000ms / fps);
 	//Good
 	return 1;
 }
@@ -54,60 +56,33 @@ int FakeH264VideoEncoderWorker::Start()
 	//Start decoding
 	encoding = 1;
 
-	//launc thread
-	createPriorityThread(&thread,startEncoding,this,0);
+	//Schedule timer
+	//TODO: increase timer precision
+	encodingTimer->Repeat(1000ms/fps);
 
 	return 1;
 }
 
-void * FakeH264VideoEncoderWorker::startEncoding(void *par)
-{
-	//Get worker
-	FakeH264VideoEncoderWorker *worker = (FakeH264VideoEncoderWorker *)par;
-	//Block all signals
-	blocksignals();
-	//Run
-	worker->Encode();
-	//Exit
-	return NULL;
-}
-
 bool FakeH264VideoEncoderWorker::SetThreadName( const std::string& name)
 {
-#if defined(__linux__)
-	return !pthread_setname_np(thread, name.c_str());
-#else
-	return false;
-#endif
+	return loop.SetThreadName(name);
 }
 
 bool FakeH264VideoEncoderWorker::SetPriority(int priority)
 {
-	sched_param param = {
-		.sched_priority = priority
-	};
-	return !pthread_setschedparam(thread, priority ? SCHED_FIFO : SCHED_OTHER, &param);
+	return loop.SetPriority(priority);
 }
 
 
 int FakeH264VideoEncoderWorker::Stop()
 {
-	Log(">FakeH264VideoEncoderWorker::Stop()\n");
+	Log("-FakeH264VideoEncoderWorker::Stop()\n");
 
-	//If we were started
-	if (encoding)
-	{
-		//Stop
-		encoding=0;
+	//Stop
+	encoding=0;
 
-		//Cancel sending
-		pthread_cond_signal(&cond);
-
-		//Esperamos
-		pthread_join(thread,NULL);
-	}
-
-	Log("<FakeH264VideoEncoderWorker::Stop()\n");
+	//Schedule timer
+	encodingTimer->Cancel();
 
 	return 1;
 }
@@ -285,6 +260,10 @@ int FakeH264VideoEncoderWorker::Init()
 		}
 	}
 
+	//Start loop
+	loop.Start();
+
+
 	Log("<FakeH264VideoEncoderWorker::Init()\n");
 
 	return 1;
@@ -295,177 +274,100 @@ int FakeH264VideoEncoderWorker::End()
 {
 	Log(">FakeH264VideoEncoderWorker::Stop()\n");
 
-	//Check if already decoding
-	if (encoding)
-		//Stop
-		Stop();
+	//End loop
+	loop.Stop();
 
 	//Done
 	return 1;
 }
 
-int FakeH264VideoEncoderWorker::Encode()
+void FakeH264VideoEncoderWorker::Encode(std::chrono::milliseconds now)
 {
-	timeval first;
-	timeval prev;
-	timeval lastFPU;
-	
-	DWORD num = 0;
-	QWORD overslept = 0;
+	//Check if it its first
+	if (first==0ms)
+		//Now
+		first = now;
 
-	Acumulator bitrateAcu(1000);
-	Acumulator fpsAcu(1000);
+	//Calculate relative time since first frame
+	auto ts = now - first;
 
-	Log(">FakeH264VideoEncoderWorker::Encode() [bitrate:%d,fps:%d]\n",bitrate,fps);
-
-	//No wait for first
-	QWORD frameTime = 0;
-
-	//The time of the first one
-	gettimeofday(&first,NULL);
-
-	//The time of the previos one
-	gettimeofday(&prev,NULL);
-
-	//Fist FPU
-	gettimeofday(&lastFPU,NULL);
-
-	//Mientras tengamos que capturar
-	while(encoding)
+	//Check if we need to send intra
+	if (sendFPU)
 	{
-		//Check if we need to send intra
-		if (sendFPU)
+		//Do not send anymore
+		sendFPU = false;
+		//Do not send if just send one (100ms)
+		if (lastFPU == 0ms || lastFPU-now>100ms)
 		{
-			//Do not send anymore
-			sendFPU = false;
-			//Do not send if just send one (100ms)
-			if (getDifTime(&lastFPU)/100>100)
-			{
-				//Move to first frame
-				frameIndex = 0;
-				//Update last FPU
-				getUpdDifTime(&lastFPU);
-			}
-		}
-		
-		//Get next video frame
-		std::unique_ptr<VideoFrame> videoFrame((VideoFrame*)frames[frameIndex]->Clone());
-
-		//Move to first frame
-		frameIndex++;
-
-		//If we have to start from start
-		if (frameIndex==frames.size())
-			//Reset
+			//Move to first frame
 			frameIndex = 0;
-
-		//Calculate bitrate
-		int bitratePerFrame = bitrate*125/fps;
-
-		//Calculate padding data
-		int padding = bitratePerFrame > videoFrame->GetLength() ? bitratePerFrame - videoFrame->GetLength() : 0;
-		
-		while (padding)
-		{
-			//The filler nal
-			BYTE filler[RTPPAYLOADSIZE] = {12};
-			//Get max len
-			int len = std::min<uint32_t>(RTPPAYLOADSIZE, padding);
-			//Add packetization
-			videoFrame->AddRtpPacket(videoFrame->AppendMedia(filler,len), len);
-			//Remove
-			padding -= len;
+			//Update last FPU
+			lastFPU = now;
 		}
-
-		//If was failed
-		if (!videoFrame)
-			//Next
-			continue;
-
-		//Increase frame counter
-		fpsAcu.Update(getTime()/1000,1);
-
-		//Check
-		if (frameTime)
-		{
-			timespec ts;
-			//Lock
-			pthread_mutex_lock(&mutex);
-			//Calculate slept time
-			QWORD sleep = frameTime;
-			//Remove extra sleep from prev
-			if (overslept<sleep)
-				//Remove it
-				sleep -= overslept;
-			else
-				//Do not overflow
-				sleep = 1;
-			//Calculate timeout
-			calcAbsTimeoutNS(&ts,&prev,sleep);
-			//Wait next or stopped
-			int canceled  = !pthread_cond_timedwait(&cond,&mutex,&ts);
-			//Unlock
-			pthread_mutex_unlock(&mutex);
-			//Check if we have been canceled
-			if (canceled)
-				//Exit
-				break;
-			//Get differencence
-			QWORD diff = getDifTime(&prev);
-			//If it is biffer
-			if (diff>frameTime)
-				//Get what we have slept more
-				overslept = diff-frameTime;
-			else
-				//No oversletp (shoulddn't be possible)
-				overslept = 0;
-		}
-
-		//Set frame time
-		frameTime = 1E6/fps;
+	}
 		
-		//Add frame size in bits to bitrate calculator
-	        bitrateAcu.Update(getDifTime(&first)/1000,videoFrame->GetLength()*8);
+	//Get next video frame
+	std::unique_ptr<VideoFrame> videoFrame((VideoFrame*)frames[frameIndex]->Clone());
 
-		//Set clock rate
-		videoFrame->SetClockRate(90000);
-		//Get now
-		auto now = getDifTime(&first)/1000;
-		//Set frame timestamp
-		videoFrame->SetTimestamp(now*90);
-		videoFrame->SetTime(getTime()/1000);
-		//Set dudation
-		videoFrame->SetDuration(frameTime*90000/1E6);
+	//Move to first frame
+	frameIndex++;
+
+	//If we have to start from start
+	if (frameIndex==frames.size())
+		//Reset
+		frameIndex = 0;
+
+	//Calculate bitrate
+	int bitratePerFrame = bitrate*125/fps;
+
+	//Calculate padding data
+	int padding = bitratePerFrame > videoFrame->GetLength() ? bitratePerFrame - videoFrame->GetLength() : 0;
 		
-		//Lock
-		pthread_mutex_lock(&mutex);
-
-		//For each listener
-		for (const auto& listener : listeners)
-			//Call listener
-			listener->onMediaFrame(*videoFrame);
-
-		//unlock
-		pthread_mutex_unlock(&mutex);
-
-		//Set sending time of previous frame
-		getUpdDifTime(&prev);
-		
-		//Dump statistics
-		if (num && ((num%fps*10)==0))
-		{
-			Debug("-Send bitrate bitrate=%d avg=%llf rate=[%llf,%llf] fps=[%llf,%llf]\n",bitrate,bitrateAcu.GetInstantAvg()/1000,bitrateAcu.GetMinAvg()/1000,bitrateAcu.GetMaxAvg()/1000,fpsAcu.GetMinAvg(),fpsAcu.GetMaxAvg());
-			bitrateAcu.ResetMinMax();
-			fpsAcu.ResetMinMax();
-		}
-		num++;
+	while (padding)
+	{
+		//The filler nal
+		BYTE filler[RTPPAYLOADSIZE] = {12};
+		//Get max len
+		int len = std::min<uint32_t>(RTPPAYLOADSIZE, padding);
+		//Add packetization
+		videoFrame->AddRtpPacket(videoFrame->AppendMedia(filler,len), len);
+		//Remove
+		padding -= len;
 	}
 
-	//Salimos
-	Log("<FakeH264VideoEncoderWorker::Encode()  [%d]\n",encoding);
+	//If was failed
+	if (!videoFrame)
+		//Next
+		return;
+
+	//Increase frame counter
+	fpsAcu.Update(now.count(),1);
+
+	//Add frame size in bits to bitrate calculator
+        bitrateAcu.Update(now.count(),videoFrame->GetLength()*8);
+
+	//Set clock rate
+	videoFrame->SetClockRate(90000);
 	
-	//Done
-	return 1;
+	//Set frame timestamp
+	videoFrame->SetTimestamp(ts.count() * 90);
+	videoFrame->SetTime(now.count());
+	//Set dudation
+	videoFrame->SetDuration(90000/fps);
+		
+	//For each listener
+	for (const auto& listener : listeners)
+		//Call listener
+		listener->onMediaFrame(*videoFrame);
+
+	//Dump statistics
+	if (num && ((num%fps*10)==0))
+	{
+		Debug("-Send bitrate bitrate=%d avg=%llf rate=[%llf,%llf] fps=[%llf,%llf]\n",bitrate,bitrateAcu.GetInstantAvg()/1000,bitrateAcu.GetMinAvg()/1000,bitrateAcu.GetMaxAvg()/1000,fpsAcu.GetMinAvg(),fpsAcu.GetMaxAvg());
+		bitrateAcu.ResetMinMax();
+		fpsAcu.ResetMinMax();
+	}
+	num++;
 }
 
 bool FakeH264VideoEncoderWorker::AddListener(MediaFrame::Listener *listener)
@@ -474,33 +376,27 @@ bool FakeH264VideoEncoderWorker::AddListener(MediaFrame::Listener *listener)
 	if (!listener)
 		return false;
 
-	//Lock
-	pthread_mutex_lock(&mutex);
-
-	//Add to set
-	listeners.insert(listener);
-
-	//unlock
-	pthread_mutex_unlock(&mutex);
+	//Add sync
+	loop.Sync([&](auto now){
+		//Add to set
+		listeners.insert(listener);
+	});
 
 	return true;
 }
 
 bool FakeH264VideoEncoderWorker::RemoveListener(MediaFrame::Listener *listener)
 {
-	//Lock
-	pthread_mutex_lock(&mutex);
+	//Remove sync
+	loop.Sync([&](auto now) {
+		//Search
+		auto it = listeners.find(listener);
 
-	//Search
-	auto it = listeners.find(listener);
-
-	//If found
-	if (it!=listeners.end())
-		//Erase it
-		listeners.erase(it);
-
-	//Unlock
-	pthread_mutex_unlock(&mutex);
+		//If found
+		if (it != listeners.end())
+			//Erase it
+			listeners.erase(it);
+	});
 
 	return true;
 }

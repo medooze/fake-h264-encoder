@@ -1,11 +1,12 @@
 #ifndef FAKEH264VIDEOENCODERWORKER_H
 #define	FAKEH264VIDEOENCODERWORKER_H
 
-#include <pthread.h>
 #include <set>
 #include <vector>
 #include "config.h"
 #include "video.h"
+#include "acumulator.h"
+#include "EventLoop.h"
 
 class FakeH264VideoEncoderWorker 
 {
@@ -23,6 +24,8 @@ public:
 
 	bool SetThreadName(const std::string& name);
 	bool SetPriority(int priority);
+
+	TimeService& GetTimeService() { return loop;	}
 	
 	bool IsEncoding() { return encoding;	}
 	
@@ -30,14 +33,10 @@ public:
 	int Stop();
 	
 protected:
-	int Encode();
-
+	void Encode(std::chrono::milliseconds now);
 private:
-	static void *startEncoding(void *par);
-
-
-	
-private:
+	EventLoop loop;
+	Timer::shared encodingTimer;
 	std::set<MediaFrame::Listener*> listeners;
 	std::vector<std::unique_ptr<VideoFrame>> frames;
 	Buffer sps;
@@ -46,10 +45,13 @@ private:
 	uint32_t frameIndex	= 0;
 	int fps			= 0;
 	DWORD bitrate		= 0;
+	DWORD num		= 0;
 
-	pthread_t	thread;
-	pthread_mutex_t mutex;
-	pthread_cond_t	cond;
+	Acumulator<uint32_t> bitrateAcu;
+	Acumulator<uint32_t> fpsAcu;
+
+	std::chrono::milliseconds first		= 0ms;
+	std::chrono::milliseconds lastFPU	= 0ms;
 	bool	encoding	 = false;
 	bool	sendFPU		 = false;
 	
