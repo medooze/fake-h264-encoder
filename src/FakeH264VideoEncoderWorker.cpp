@@ -36,10 +36,12 @@ int FakeH264VideoEncoderWorker::SetBitrate(int fps,int bitrate)
 	//Store parameters
 	this->bitrate	  = bitrate;
 	this->fps	  = fps;
+	//Calculate new interval
+	auto repeat = 1000ms/fps;
 
 	//Reschedule encoding timer if already started to encode
-	if (encodingTimer->IsScheduled())
-		encodingTimer->Repeat(1000ms / fps);
+	if (encodingTimer->IsScheduled() && encodingTimer->GetRepeat()!=repeat)
+		encodingTimer->Repeat(repeat);
 	//Good
 	return 1;
 }
@@ -298,7 +300,7 @@ void FakeH264VideoEncoderWorker::Encode(std::chrono::milliseconds now)
 		//Do not send anymore
 		sendFPU = false;
 		//Do not send if just send one (100ms)
-		if (lastFPU == 0ms || lastFPU-now>100ms)
+		if (lastFPU == 0ms || now-lastFPU>100ms)
 		{
 			//Move to first frame
 			frameIndex = 0;
