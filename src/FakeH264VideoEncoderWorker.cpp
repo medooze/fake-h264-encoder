@@ -22,6 +22,7 @@ FakeH264VideoEncoderWorker::FakeH264VideoEncoderWorker() :
 	encodingTimer = loop.CreateTimer([&](std::chrono::milliseconds now) {
 		Encode(now);
 	});
+	encodingTimer->SetName("FakeH264VideoEncoderWorker::encodingTimer");
 }
 FakeH264VideoEncoderWorker::~FakeH264VideoEncoderWorker()
 {
@@ -361,7 +362,7 @@ void FakeH264VideoEncoderWorker::Encode(std::chrono::milliseconds now)
 		listener->onMediaFrame(*videoFrame);
 
 	//Dump statistics
-	if (num && ((num%fps*10)==0))
+	if (num && ((num%fps*10)==0) && bitrateAcu.IsInMinMaxWindow() && fpsAcu.IsInMinMaxWindow())
 	{
 		Debug("-Send bitrate bitrate=%d avg=%llf rate=[%llf,%llf] fps=[%llf,%llf]\n",bitrate,bitrateAcu.GetInstantAvg()/1000,bitrateAcu.GetMinAvg()/1000,bitrateAcu.GetMaxAvg()/1000,fpsAcu.GetMinAvg(),fpsAcu.GetMaxAvg());
 		bitrateAcu.ResetMinMax();
@@ -376,6 +377,8 @@ bool FakeH264VideoEncoderWorker::AddListener(MediaFrame::Listener *listener)
 	if (!listener)
 		return false;
 
+	Debug("-FakeH264VideoEncoderWorker::AddListener() [listener:%p]\n", listener);
+
 	//Add sync
 	loop.Sync([&](auto now){
 		//Add to set
@@ -387,6 +390,8 @@ bool FakeH264VideoEncoderWorker::AddListener(MediaFrame::Listener *listener)
 
 bool FakeH264VideoEncoderWorker::RemoveListener(MediaFrame::Listener *listener)
 {
+	Debug("-FakeH264VideoEncoderWorker::RemoveListener() [listener:%p]\n", listener);
+
 	//Remove sync
 	loop.Sync([&](auto now) {
 		//Search
