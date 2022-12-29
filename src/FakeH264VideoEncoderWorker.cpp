@@ -373,13 +373,13 @@ void FakeH264VideoEncoderWorker::Encode(std::chrono::milliseconds now)
 	num++;
 }
 
-bool FakeH264VideoEncoderWorker::AddListener(MediaFrame::Listener *listener)
+bool FakeH264VideoEncoderWorker::AddListener(const MediaFrame::Listener::shared& listener)
 {
 	//Ensure it is not null
 	if (!listener)
 		return false;
 
-	Debug("-FakeH264VideoEncoderWorker::AddListener() [listener:%p]\n", listener);
+	Debug("-FakeH264VideoEncoderWorker::AddListener() [listener:%p]\n", listener.get());
 
 	//Add sync
 	loop.Sync([&](auto now){
@@ -390,19 +390,14 @@ bool FakeH264VideoEncoderWorker::AddListener(MediaFrame::Listener *listener)
 	return true;
 }
 
-bool FakeH264VideoEncoderWorker::RemoveListener(MediaFrame::Listener *listener)
+bool FakeH264VideoEncoderWorker::RemoveListener(const MediaFrame::Listener::shared& listener)
 {
-	Debug("-FakeH264VideoEncoderWorker::RemoveListener() [listener:%p]\n", listener);
+	Debug("-FakeH264VideoEncoderWorker::RemoveListener() [listener:%p]\n", listener.get());
 
 	//Remove sync
 	loop.Sync([&](auto now) {
-		//Search
-		auto it = listeners.find(listener);
-
-		//If found
-		if (it != listeners.end())
-			//Erase it
-			listeners.erase(it);
+		//Erase it
+		listeners.erase(listener);
 	});
 
 	return true;

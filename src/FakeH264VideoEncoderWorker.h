@@ -18,8 +18,8 @@ public:
 	int SetBitrate(int fps,int bitrate);
 	int End();
 
-	bool AddListener(MediaFrame::Listener *listener);
-	bool RemoveListener(MediaFrame::Listener *listener);
+	bool AddListener(const MediaFrame::Listener::shared& listener);
+	bool RemoveListener(const MediaFrame::Listener::shared& listener);
 	void SendFPU();
 
 	bool SetThreadName(const std::string& name);
@@ -37,7 +37,7 @@ protected:
 private:
 	EventLoop loop;
 	Timer::shared encodingTimer;
-	std::set<MediaFrame::Listener*> listeners;
+	std::set<MediaFrame::Listener::shared> listeners;
 	std::vector<std::unique_ptr<VideoFrame>> frames;
 	Buffer sps;
 	Buffer pps;
