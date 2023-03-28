@@ -47,8 +47,8 @@ private:
 	DWORD bitrate		= 0;
 	DWORD num		= 0;
 
-	Acumulator<uint32_t> bitrateAcu;
-	Acumulator<uint32_t> fpsAcu;
+	MinMaxAcumulator<uint32_t> bitrateAcu;
+	MinMaxAcumulator<uint32_t> fpsAcu;
 
 	std::chrono::milliseconds first		= 0ms;
 	std::chrono::milliseconds lastFPU	= 0ms;
