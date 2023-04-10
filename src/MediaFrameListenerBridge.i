@@ -11,9 +11,10 @@
 struct MediaFrameListenerBridge : 
 	public RTPIncomingMediaStream,
 	public RTPReceiver,
-	public MediaFrameListener
+	public MediaFrameListener,
+	public MediaFrameProducer
 {
-	MediaFrameListenerBridge(TimeService& timeService, int ssrc, bool smooth = false);
+	MediaFrameListenerBridge(TimeService& timeService, int ssrc);
 
 	DWORD numFrames;
 	DWORD numPackets;
@@ -26,20 +27,18 @@ struct MediaFrameListenerBridge :
 	DWORD avgWaitedTime;
 	void Update();
 	
-	void AddMediaListener(const MediaFrameListenerShared& listener);
-	void RemoveMediaListener(const MediaFrameListenerShared& listener);
 	void Stop();
 };
 
 SHARED_PTR_BEGIN(MediaFrameListenerBridge)
 {
-	MediaFrameListenerBridgeShared(TimeService& timeService, int ssrc, bool smooth = false)
+	MediaFrameListenerBridgeShared(TimeService& timeService, int ssrc)
 	{
-		return new std::shared_ptr<MediaFrameListenerBridge>(new MediaFrameListenerBridge(timeService, ssrc, smooth));
+		return new std::shared_ptr<MediaFrameListenerBridge>(new MediaFrameListenerBridge(timeService, ssrc));
 	}
 	SHARED_PTR_TO(RTPIncomingMediaStream)
 	SHARED_PTR_TO(RTPReceiver)
 	SHARED_PTR_TO(MediaFrameListener)
-	
+	SHARED_PTR_TO(MediaFrameProducer)
 }
 SHARED_PTR_END(MediaFrameListenerBridge)
