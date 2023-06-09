@@ -1585,8 +1585,8 @@ MediaFrameListenerBridgeShared* MediaFrameListenerBridgeShared_from_proxy(const 
 }
 
 
-SWIGINTERN MediaFrameListenerBridgeShared *new_MediaFrameListenerBridgeShared(TimeService &timeService,int ssrc){
-		return new std::shared_ptr<MediaFrameListenerBridge>(new MediaFrameListenerBridge(timeService, ssrc));
+SWIGINTERN MediaFrameListenerBridgeShared *new_MediaFrameListenerBridgeShared__SWIG_0(TimeService &timeService,int ssrc,bool smooth=false){
+		return new std::shared_ptr<MediaFrameListenerBridge>(new MediaFrameListenerBridge(timeService, ssrc, smooth));
 	}
 SWIGINTERN RTPIncomingMediaStreamShared MediaFrameListenerBridgeShared_toRTPIncomingMediaStream__SWIG(MediaFrameListenerBridgeShared *self){
 	return std::static_pointer_cast<RTPIncomingMediaStream>(*self);
@@ -2975,19 +2975,22 @@ static void _wrap_delete_MediaFrameListenerBridge(const v8::WeakCallbackInfo<SWI
 }
 
 
-static SwigV8ReturnValue _wrap_new_MediaFrameListenerBridgeShared(const SwigV8Arguments &args) {
+static SwigV8ReturnValue _wrap_new_MediaFrameListenerBridgeShared__SWIG_0(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
   SWIGV8_HANDLESCOPE();
   
   SWIGV8_OBJECT self = args.Holder();
   TimeService *arg1 = 0 ;
   int arg2 ;
+  bool arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   int val2 ;
   int ecode2 = 0 ;
+  bool val3 ;
+  int ecode3 = 0 ;
   MediaFrameListenerBridgeShared *result;
-  if(self->InternalFieldCount() < 1) SWIG_exception_fail(SWIG_ERROR, "Illegal call of constructor _wrap_new_MediaFrameListenerBridgeShared.");
-  if(args.Length() != 2) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_MediaFrameListenerBridgeShared.");
+  if(self->InternalFieldCount() < 1) SWIG_exception_fail(SWIG_ERROR, "Illegal call of constructor _wrap_new_MediaFrameListenerBridgeShared__SWIG_0.");
+  if(args.Length() != 3) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_MediaFrameListenerBridgeShared__SWIG_0.");
   res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_TimeService,  0 );
   if (!SWIG_IsOK(res1)) {
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_MediaFrameListenerBridgeShared" "', argument " "1"" of type '" "TimeService &""'"); 
@@ -3001,7 +3004,13 @@ static SwigV8ReturnValue _wrap_new_MediaFrameListenerBridgeShared(const SwigV8Ar
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_MediaFrameListenerBridgeShared" "', argument " "2"" of type '" "int""'");
   } 
   arg2 = static_cast< int >(val2);
-  result = (MediaFrameListenerBridgeShared *)new_MediaFrameListenerBridgeShared(*arg1,arg2);
+  ecode3 = SWIG_AsVal_bool(args[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_MediaFrameListenerBridgeShared" "', argument " "3"" of type '" "bool""'");
+  } 
+  arg3 = static_cast< bool >(val3);
+  result = (MediaFrameListenerBridgeShared *)new_MediaFrameListenerBridgeShared__SWIG_0(*arg1,arg2,arg3);
+  
   
   
   
@@ -3011,6 +3020,80 @@ static SwigV8ReturnValue _wrap_new_MediaFrameListenerBridgeShared(const SwigV8Ar
   SWIGV8_RETURN(self);
   
   goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_new_MediaFrameListenerBridgeShared__SWIG_1(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
+  SWIGV8_HANDLESCOPE();
+  
+  SWIGV8_OBJECT self = args.Holder();
+  TimeService *arg1 = 0 ;
+  int arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  MediaFrameListenerBridgeShared *result;
+  if(self->InternalFieldCount() < 1) SWIG_exception_fail(SWIG_ERROR, "Illegal call of constructor _wrap_new_MediaFrameListenerBridgeShared__SWIG_1.");
+  if(args.Length() != 2) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_MediaFrameListenerBridgeShared__SWIG_1.");
+  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_TimeService,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_MediaFrameListenerBridgeShared" "', argument " "1"" of type '" "TimeService &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_MediaFrameListenerBridgeShared" "', argument " "1"" of type '" "TimeService &""'"); 
+  }
+  arg1 = reinterpret_cast< TimeService * >(argp1);
+  ecode2 = SWIG_AsVal_int(args[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_MediaFrameListenerBridgeShared" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  result = (MediaFrameListenerBridgeShared *)new_MediaFrameListenerBridgeShared__SWIG_0(*arg1,arg2);
+  
+  
+  
+  
+  
+  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_MediaFrameListenerBridgeShared, SWIG_POINTER_OWN);
+  SWIGV8_RETURN(self);
+  
+  goto fail;
+fail:
+  SWIGV8_RETURN(SWIGV8_UNDEFINED());
+}
+
+
+static SwigV8ReturnValue _wrap_new_MediaFrameListenerBridgeShared(const SwigV8Arguments &args) {
+  SWIGV8_HANDLESCOPE();
+  
+  OverloadErrorHandler errorHandler;
+  SWIGV8_VALUE self;
+  
+  // switch all cases by means of series of if-returns.
+  
+  if(args.Length() == 3) {
+    errorHandler.err.Clear();
+    _wrap_new_MediaFrameListenerBridgeShared__SWIG_0(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      return;
+    }
+  }
+  
+  if(args.Length() == 2) {
+    errorHandler.err.Clear();
+    _wrap_new_MediaFrameListenerBridgeShared__SWIG_1(args, errorHandler);
+    if(errorHandler.err.IsEmpty()) {
+      return;
+    }
+  }
+  
+  
+  // default:
+  SWIG_exception_fail(SWIG_ERROR, "Illegal arguments for construction of _exports_MediaFrameListenerBridgeShared");
+  
 fail:
   SWIGV8_RETURN(SWIGV8_UNDEFINED());
 }
