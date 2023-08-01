@@ -1349,15 +1349,16 @@ fail: ;
 #define SWIGTYPE_p_MediaFrameProducer swig_types[8]
 #define SWIGTYPE_p_MediaFrameProducerShared swig_types[9]
 #define SWIGTYPE_p_MedoozeFakeH264EncoderModule swig_types[10]
-#define SWIGTYPE_p_RTPIncomingMediaStream swig_types[11]
-#define SWIGTYPE_p_RTPIncomingMediaStreamShared swig_types[12]
-#define SWIGTYPE_p_RTPReceiver swig_types[13]
-#define SWIGTYPE_p_RTPReceiverShared swig_types[14]
-#define SWIGTYPE_p_TimeService swig_types[15]
-#define SWIGTYPE_p_char swig_types[16]
-#define SWIGTYPE_p_std__string swig_types[17]
-static swig_type_info *swig_types[19];
-static swig_module_info swig_module = {swig_types, 18, 0, 0, 0, 0};
+#define SWIGTYPE_p_QWORD swig_types[11]
+#define SWIGTYPE_p_RTPIncomingMediaStream swig_types[12]
+#define SWIGTYPE_p_RTPIncomingMediaStreamShared swig_types[13]
+#define SWIGTYPE_p_RTPReceiver swig_types[14]
+#define SWIGTYPE_p_RTPReceiverShared swig_types[15]
+#define SWIGTYPE_p_TimeService swig_types[16]
+#define SWIGTYPE_p_char swig_types[17]
+#define SWIGTYPE_p_std__string swig_types[18]
+static swig_type_info *swig_types[20];
+static swig_module_info swig_module = {swig_types, 19, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -1585,8 +1586,8 @@ MediaFrameListenerBridgeShared* MediaFrameListenerBridgeShared_from_proxy(const 
 }
 
 
-SWIGINTERN MediaFrameListenerBridgeShared *new_MediaFrameListenerBridgeShared__SWIG_0(TimeService &timeService,int ssrc,bool smooth=false){
-		return new std::shared_ptr<MediaFrameListenerBridge>(new MediaFrameListenerBridge(timeService, ssrc, smooth));
+SWIGINTERN MediaFrameListenerBridgeShared *new_MediaFrameListenerBridgeShared(TimeService &timeService,int ssrc){
+		return new std::shared_ptr<MediaFrameListenerBridge>(new MediaFrameListenerBridge(timeService, ssrc));
 	}
 SWIGINTERN RTPIncomingMediaStreamShared MediaFrameListenerBridgeShared_toRTPIncomingMediaStream__SWIG(MediaFrameListenerBridgeShared *self){
 	return std::static_pointer_cast<RTPIncomingMediaStream>(*self);
@@ -2301,7 +2302,7 @@ static void _wrap_MediaFrameListenerBridge_numFrames_set(v8::Local<v8::Name> pro
   SWIGV8_HANDLESCOPE();
   
   MediaFrameListenerBridge *arg1 = (MediaFrameListenerBridge *) 0 ;
-  DWORD arg2 ;
+  QWORD arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 ;
@@ -2313,14 +2314,14 @@ static void _wrap_MediaFrameListenerBridge_numFrames_set(v8::Local<v8::Name> pro
   }
   arg1 = reinterpret_cast< MediaFrameListenerBridge * >(argp1);
   {
-    res2 = SWIG_ConvertPtr(value, &argp2, SWIGTYPE_p_DWORD,  0 );
+    res2 = SWIG_ConvertPtr(value, &argp2, SWIGTYPE_p_QWORD,  0 );
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MediaFrameListenerBridge_numFrames_set" "', argument " "2"" of type '" "DWORD""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MediaFrameListenerBridge_numFrames_set" "', argument " "2"" of type '" "QWORD""'"); 
     }  
     if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MediaFrameListenerBridge_numFrames_set" "', argument " "2"" of type '" "DWORD""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MediaFrameListenerBridge_numFrames_set" "', argument " "2"" of type '" "QWORD""'");
     } else {
-      arg2 = *(reinterpret_cast< DWORD * >(argp2));
+      arg2 = *(reinterpret_cast< QWORD * >(argp2));
     }
   }
   if (arg1) (arg1)->numFrames = arg2;
@@ -2339,7 +2340,7 @@ static SwigV8ReturnValue _wrap_MediaFrameListenerBridge_numFrames_get(v8::Local<
   MediaFrameListenerBridge *arg1 = (MediaFrameListenerBridge *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  DWORD result;
+  QWORD result;
   
   res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_MediaFrameListenerBridge, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
@@ -2347,7 +2348,7 @@ static SwigV8ReturnValue _wrap_MediaFrameListenerBridge_numFrames_get(v8::Local<
   }
   arg1 = reinterpret_cast< MediaFrameListenerBridge * >(argp1);
   result =  ((arg1)->numFrames);
-  jsresult = SWIG_NewPointerObj((new DWORD(static_cast< const DWORD& >(result))), SWIGTYPE_p_DWORD, SWIG_POINTER_OWN |  0 );
+  jsresult = SWIG_NewPointerObj((new QWORD(static_cast< const QWORD& >(result))), SWIGTYPE_p_QWORD, SWIG_POINTER_OWN |  0 );
   
   
   SWIGV8_RETURN_INFO(jsresult, info);
@@ -2362,7 +2363,7 @@ static void _wrap_MediaFrameListenerBridge_numPackets_set(v8::Local<v8::Name> pr
   SWIGV8_HANDLESCOPE();
   
   MediaFrameListenerBridge *arg1 = (MediaFrameListenerBridge *) 0 ;
-  DWORD arg2 ;
+  QWORD arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 ;
@@ -2374,14 +2375,14 @@ static void _wrap_MediaFrameListenerBridge_numPackets_set(v8::Local<v8::Name> pr
   }
   arg1 = reinterpret_cast< MediaFrameListenerBridge * >(argp1);
   {
-    res2 = SWIG_ConvertPtr(value, &argp2, SWIGTYPE_p_DWORD,  0 );
+    res2 = SWIG_ConvertPtr(value, &argp2, SWIGTYPE_p_QWORD,  0 );
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MediaFrameListenerBridge_numPackets_set" "', argument " "2"" of type '" "DWORD""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MediaFrameListenerBridge_numPackets_set" "', argument " "2"" of type '" "QWORD""'"); 
     }  
     if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MediaFrameListenerBridge_numPackets_set" "', argument " "2"" of type '" "DWORD""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MediaFrameListenerBridge_numPackets_set" "', argument " "2"" of type '" "QWORD""'");
     } else {
-      arg2 = *(reinterpret_cast< DWORD * >(argp2));
+      arg2 = *(reinterpret_cast< QWORD * >(argp2));
     }
   }
   if (arg1) (arg1)->numPackets = arg2;
@@ -2400,7 +2401,7 @@ static SwigV8ReturnValue _wrap_MediaFrameListenerBridge_numPackets_get(v8::Local
   MediaFrameListenerBridge *arg1 = (MediaFrameListenerBridge *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  DWORD result;
+  QWORD result;
   
   res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_MediaFrameListenerBridge, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
@@ -2408,7 +2409,7 @@ static SwigV8ReturnValue _wrap_MediaFrameListenerBridge_numPackets_get(v8::Local
   }
   arg1 = reinterpret_cast< MediaFrameListenerBridge * >(argp1);
   result =  ((arg1)->numPackets);
-  jsresult = SWIG_NewPointerObj((new DWORD(static_cast< const DWORD& >(result))), SWIGTYPE_p_DWORD, SWIG_POINTER_OWN |  0 );
+  jsresult = SWIG_NewPointerObj((new QWORD(static_cast< const QWORD& >(result))), SWIGTYPE_p_QWORD, SWIG_POINTER_OWN |  0 );
   
   
   SWIGV8_RETURN_INFO(jsresult, info);
@@ -2423,7 +2424,7 @@ static void _wrap_MediaFrameListenerBridge_numFramesDelta_set(v8::Local<v8::Name
   SWIGV8_HANDLESCOPE();
   
   MediaFrameListenerBridge *arg1 = (MediaFrameListenerBridge *) 0 ;
-  DWORD arg2 ;
+  QWORD arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 ;
@@ -2435,14 +2436,14 @@ static void _wrap_MediaFrameListenerBridge_numFramesDelta_set(v8::Local<v8::Name
   }
   arg1 = reinterpret_cast< MediaFrameListenerBridge * >(argp1);
   {
-    res2 = SWIG_ConvertPtr(value, &argp2, SWIGTYPE_p_DWORD,  0 );
+    res2 = SWIG_ConvertPtr(value, &argp2, SWIGTYPE_p_QWORD,  0 );
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MediaFrameListenerBridge_numFramesDelta_set" "', argument " "2"" of type '" "DWORD""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MediaFrameListenerBridge_numFramesDelta_set" "', argument " "2"" of type '" "QWORD""'"); 
     }  
     if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MediaFrameListenerBridge_numFramesDelta_set" "', argument " "2"" of type '" "DWORD""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MediaFrameListenerBridge_numFramesDelta_set" "', argument " "2"" of type '" "QWORD""'");
     } else {
-      arg2 = *(reinterpret_cast< DWORD * >(argp2));
+      arg2 = *(reinterpret_cast< QWORD * >(argp2));
     }
   }
   if (arg1) (arg1)->numFramesDelta = arg2;
@@ -2461,7 +2462,7 @@ static SwigV8ReturnValue _wrap_MediaFrameListenerBridge_numFramesDelta_get(v8::L
   MediaFrameListenerBridge *arg1 = (MediaFrameListenerBridge *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  DWORD result;
+  QWORD result;
   
   res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_MediaFrameListenerBridge, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
@@ -2469,7 +2470,7 @@ static SwigV8ReturnValue _wrap_MediaFrameListenerBridge_numFramesDelta_get(v8::L
   }
   arg1 = reinterpret_cast< MediaFrameListenerBridge * >(argp1);
   result =  ((arg1)->numFramesDelta);
-  jsresult = SWIG_NewPointerObj((new DWORD(static_cast< const DWORD& >(result))), SWIGTYPE_p_DWORD, SWIG_POINTER_OWN |  0 );
+  jsresult = SWIG_NewPointerObj((new QWORD(static_cast< const QWORD& >(result))), SWIGTYPE_p_QWORD, SWIG_POINTER_OWN |  0 );
   
   
   SWIGV8_RETURN_INFO(jsresult, info);
@@ -2484,7 +2485,7 @@ static void _wrap_MediaFrameListenerBridge_numPacketsDelta_set(v8::Local<v8::Nam
   SWIGV8_HANDLESCOPE();
   
   MediaFrameListenerBridge *arg1 = (MediaFrameListenerBridge *) 0 ;
-  DWORD arg2 ;
+  QWORD arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 ;
@@ -2496,14 +2497,14 @@ static void _wrap_MediaFrameListenerBridge_numPacketsDelta_set(v8::Local<v8::Nam
   }
   arg1 = reinterpret_cast< MediaFrameListenerBridge * >(argp1);
   {
-    res2 = SWIG_ConvertPtr(value, &argp2, SWIGTYPE_p_DWORD,  0 );
+    res2 = SWIG_ConvertPtr(value, &argp2, SWIGTYPE_p_QWORD,  0 );
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MediaFrameListenerBridge_numPacketsDelta_set" "', argument " "2"" of type '" "DWORD""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MediaFrameListenerBridge_numPacketsDelta_set" "', argument " "2"" of type '" "QWORD""'"); 
     }  
     if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MediaFrameListenerBridge_numPacketsDelta_set" "', argument " "2"" of type '" "DWORD""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MediaFrameListenerBridge_numPacketsDelta_set" "', argument " "2"" of type '" "QWORD""'");
     } else {
-      arg2 = *(reinterpret_cast< DWORD * >(argp2));
+      arg2 = *(reinterpret_cast< QWORD * >(argp2));
     }
   }
   if (arg1) (arg1)->numPacketsDelta = arg2;
@@ -2522,7 +2523,7 @@ static SwigV8ReturnValue _wrap_MediaFrameListenerBridge_numPacketsDelta_get(v8::
   MediaFrameListenerBridge *arg1 = (MediaFrameListenerBridge *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  DWORD result;
+  QWORD result;
   
   res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_MediaFrameListenerBridge, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
@@ -2530,7 +2531,7 @@ static SwigV8ReturnValue _wrap_MediaFrameListenerBridge_numPacketsDelta_get(v8::
   }
   arg1 = reinterpret_cast< MediaFrameListenerBridge * >(argp1);
   result =  ((arg1)->numPacketsDelta);
-  jsresult = SWIG_NewPointerObj((new DWORD(static_cast< const DWORD& >(result))), SWIGTYPE_p_DWORD, SWIG_POINTER_OWN |  0 );
+  jsresult = SWIG_NewPointerObj((new QWORD(static_cast< const QWORD& >(result))), SWIGTYPE_p_QWORD, SWIG_POINTER_OWN |  0 );
   
   
   SWIGV8_RETURN_INFO(jsresult, info);
@@ -2545,7 +2546,7 @@ static void _wrap_MediaFrameListenerBridge_totalBytes_set(v8::Local<v8::Name> pr
   SWIGV8_HANDLESCOPE();
   
   MediaFrameListenerBridge *arg1 = (MediaFrameListenerBridge *) 0 ;
-  DWORD arg2 ;
+  QWORD arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 ;
@@ -2557,14 +2558,14 @@ static void _wrap_MediaFrameListenerBridge_totalBytes_set(v8::Local<v8::Name> pr
   }
   arg1 = reinterpret_cast< MediaFrameListenerBridge * >(argp1);
   {
-    res2 = SWIG_ConvertPtr(value, &argp2, SWIGTYPE_p_DWORD,  0 );
+    res2 = SWIG_ConvertPtr(value, &argp2, SWIGTYPE_p_QWORD,  0 );
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MediaFrameListenerBridge_totalBytes_set" "', argument " "2"" of type '" "DWORD""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "MediaFrameListenerBridge_totalBytes_set" "', argument " "2"" of type '" "QWORD""'"); 
     }  
     if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MediaFrameListenerBridge_totalBytes_set" "', argument " "2"" of type '" "DWORD""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "MediaFrameListenerBridge_totalBytes_set" "', argument " "2"" of type '" "QWORD""'");
     } else {
-      arg2 = *(reinterpret_cast< DWORD * >(argp2));
+      arg2 = *(reinterpret_cast< QWORD * >(argp2));
     }
   }
   if (arg1) (arg1)->totalBytes = arg2;
@@ -2583,7 +2584,7 @@ static SwigV8ReturnValue _wrap_MediaFrameListenerBridge_totalBytes_get(v8::Local
   MediaFrameListenerBridge *arg1 = (MediaFrameListenerBridge *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  DWORD result;
+  QWORD result;
   
   res1 = SWIG_ConvertPtr(info.Holder(), &argp1,SWIGTYPE_p_MediaFrameListenerBridge, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
@@ -2591,7 +2592,7 @@ static SwigV8ReturnValue _wrap_MediaFrameListenerBridge_totalBytes_get(v8::Local
   }
   arg1 = reinterpret_cast< MediaFrameListenerBridge * >(argp1);
   result =  ((arg1)->totalBytes);
-  jsresult = SWIG_NewPointerObj((new DWORD(static_cast< const DWORD& >(result))), SWIGTYPE_p_DWORD, SWIG_POINTER_OWN |  0 );
+  jsresult = SWIG_NewPointerObj((new QWORD(static_cast< const QWORD& >(result))), SWIGTYPE_p_QWORD, SWIG_POINTER_OWN |  0 );
   
   
   SWIGV8_RETURN_INFO(jsresult, info);
@@ -2975,125 +2976,42 @@ static void _wrap_delete_MediaFrameListenerBridge(const v8::WeakCallbackInfo<SWI
 }
 
 
-static SwigV8ReturnValue _wrap_new_MediaFrameListenerBridgeShared__SWIG_0(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
-  SWIGV8_HANDLESCOPE();
-  
-  SWIGV8_OBJECT self = args.Holder();
-  TimeService *arg1 = 0 ;
-  int arg2 ;
-  bool arg3 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  bool val3 ;
-  int ecode3 = 0 ;
-  MediaFrameListenerBridgeShared *result;
-  if(self->InternalFieldCount() < 1) SWIG_exception_fail(SWIG_ERROR, "Illegal call of constructor _wrap_new_MediaFrameListenerBridgeShared__SWIG_0.");
-  if(args.Length() != 3) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_MediaFrameListenerBridgeShared__SWIG_0.");
-  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_TimeService,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_MediaFrameListenerBridgeShared" "', argument " "1"" of type '" "TimeService &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_MediaFrameListenerBridgeShared" "', argument " "1"" of type '" "TimeService &""'"); 
-  }
-  arg1 = reinterpret_cast< TimeService * >(argp1);
-  ecode2 = SWIG_AsVal_int(args[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_MediaFrameListenerBridgeShared" "', argument " "2"" of type '" "int""'");
-  } 
-  arg2 = static_cast< int >(val2);
-  ecode3 = SWIG_AsVal_bool(args[2], &val3);
-  if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "new_MediaFrameListenerBridgeShared" "', argument " "3"" of type '" "bool""'");
-  } 
-  arg3 = static_cast< bool >(val3);
-  result = (MediaFrameListenerBridgeShared *)new_MediaFrameListenerBridgeShared__SWIG_0(*arg1,arg2,arg3);
-  
-  
-  
-  
-  
-  
-  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_MediaFrameListenerBridgeShared, SWIG_POINTER_OWN);
-  SWIGV8_RETURN(self);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
-static SwigV8ReturnValue _wrap_new_MediaFrameListenerBridgeShared__SWIG_1(const SwigV8Arguments &args, V8ErrorHandler &SWIGV8_ErrorHandler) {
-  SWIGV8_HANDLESCOPE();
-  
-  SWIGV8_OBJECT self = args.Holder();
-  TimeService *arg1 = 0 ;
-  int arg2 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  int val2 ;
-  int ecode2 = 0 ;
-  MediaFrameListenerBridgeShared *result;
-  if(self->InternalFieldCount() < 1) SWIG_exception_fail(SWIG_ERROR, "Illegal call of constructor _wrap_new_MediaFrameListenerBridgeShared__SWIG_1.");
-  if(args.Length() != 2) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_MediaFrameListenerBridgeShared__SWIG_1.");
-  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_TimeService,  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_MediaFrameListenerBridgeShared" "', argument " "1"" of type '" "TimeService &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_MediaFrameListenerBridgeShared" "', argument " "1"" of type '" "TimeService &""'"); 
-  }
-  arg1 = reinterpret_cast< TimeService * >(argp1);
-  ecode2 = SWIG_AsVal_int(args[1], &val2);
-  if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_MediaFrameListenerBridgeShared" "', argument " "2"" of type '" "int""'");
-  } 
-  arg2 = static_cast< int >(val2);
-  result = (MediaFrameListenerBridgeShared *)new_MediaFrameListenerBridgeShared__SWIG_0(*arg1,arg2);
-  
-  
-  
-  
-  
-  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_MediaFrameListenerBridgeShared, SWIG_POINTER_OWN);
-  SWIGV8_RETURN(self);
-  
-  goto fail;
-fail:
-  SWIGV8_RETURN(SWIGV8_UNDEFINED());
-}
-
-
 static SwigV8ReturnValue _wrap_new_MediaFrameListenerBridgeShared(const SwigV8Arguments &args) {
   SWIGV8_HANDLESCOPE();
   
-  OverloadErrorHandler errorHandler;
-  SWIGV8_VALUE self;
-  
-  // switch all cases by means of series of if-returns.
-  
-  if(args.Length() == 3) {
-    errorHandler.err.Clear();
-    _wrap_new_MediaFrameListenerBridgeShared__SWIG_0(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
+  SWIGV8_OBJECT self = args.Holder();
+  TimeService *arg1 = 0 ;
+  int arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  MediaFrameListenerBridgeShared *result;
+  if(self->InternalFieldCount() < 1) SWIG_exception_fail(SWIG_ERROR, "Illegal call of constructor _wrap_new_MediaFrameListenerBridgeShared.");
+  if(args.Length() != 2) SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments for _wrap_new_MediaFrameListenerBridgeShared.");
+  res1 = SWIG_ConvertPtr(args[0], &argp1, SWIGTYPE_p_TimeService,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_MediaFrameListenerBridgeShared" "', argument " "1"" of type '" "TimeService &""'"); 
   }
-  
-  if(args.Length() == 2) {
-    errorHandler.err.Clear();
-    _wrap_new_MediaFrameListenerBridgeShared__SWIG_1(args, errorHandler);
-    if(errorHandler.err.IsEmpty()) {
-      return;
-    }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_MediaFrameListenerBridgeShared" "', argument " "1"" of type '" "TimeService &""'"); 
   }
+  arg1 = reinterpret_cast< TimeService * >(argp1);
+  ecode2 = SWIG_AsVal_int(args[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "new_MediaFrameListenerBridgeShared" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  result = (MediaFrameListenerBridgeShared *)new_MediaFrameListenerBridgeShared(*arg1,arg2);
   
   
-  // default:
-  SWIG_exception_fail(SWIG_ERROR, "Illegal arguments for construction of _exports_MediaFrameListenerBridgeShared");
   
+  
+  
+  SWIGV8_SetPrivateData(self, result, SWIGTYPE_p_MediaFrameListenerBridgeShared, SWIG_POINTER_OWN);
+  SWIGV8_RETURN(self);
+  
+  goto fail;
 fail:
   SWIGV8_RETURN(SWIGV8_UNDEFINED());
 }
@@ -3868,6 +3786,7 @@ static swig_type_info _swigt__p_MediaFrameListenerShared = {"_p_MediaFrameListen
 static swig_type_info _swigt__p_MediaFrameProducer = {"_p_MediaFrameProducer", "MediaFrameProducer *|p_MediaFrameProducer", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MediaFrameProducerShared = {"_p_MediaFrameProducerShared", "p_MediaFrameProducerShared|MediaFrameProducerShared *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_MedoozeFakeH264EncoderModule = {"_p_MedoozeFakeH264EncoderModule", "p_MedoozeFakeH264EncoderModule", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_QWORD = {"_p_QWORD", "QWORD *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_RTPIncomingMediaStream = {"_p_RTPIncomingMediaStream", "p_RTPIncomingMediaStream|RTPIncomingMediaStream *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_RTPIncomingMediaStreamShared = {"_p_RTPIncomingMediaStreamShared", "p_RTPIncomingMediaStreamShared|RTPIncomingMediaStreamShared *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_RTPReceiver = {"_p_RTPReceiver", "RTPReceiver *|p_RTPReceiver", 0, 0, (void*)0, 0};
@@ -3888,6 +3807,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_MediaFrameProducer,
   &_swigt__p_MediaFrameProducerShared,
   &_swigt__p_MedoozeFakeH264EncoderModule,
+  &_swigt__p_QWORD,
   &_swigt__p_RTPIncomingMediaStream,
   &_swigt__p_RTPIncomingMediaStreamShared,
   &_swigt__p_RTPReceiver,
@@ -3908,6 +3828,7 @@ static swig_cast_info _swigc__p_MediaFrameListenerShared[] = {  {&_swigt__p_Medi
 static swig_cast_info _swigc__p_MediaFrameProducer[] = {  {&_swigt__p_MediaFrameProducer, 0, 0, 0},  {&_swigt__p_MediaFrameListenerBridge, _p_MediaFrameListenerBridgeTo_p_MediaFrameProducer, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MediaFrameProducerShared[] = {  {&_swigt__p_MediaFrameProducerShared, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_MedoozeFakeH264EncoderModule[] = {  {&_swigt__p_MedoozeFakeH264EncoderModule, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_QWORD[] = {  {&_swigt__p_QWORD, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RTPIncomingMediaStream[] = {  {&_swigt__p_RTPIncomingMediaStream, 0, 0, 0},  {&_swigt__p_MediaFrameListenerBridge, _p_MediaFrameListenerBridgeTo_p_RTPIncomingMediaStream, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RTPIncomingMediaStreamShared[] = {  {&_swigt__p_RTPIncomingMediaStreamShared, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_RTPReceiver[] = {  {&_swigt__p_RTPReceiver, 0, 0, 0},  {&_swigt__p_MediaFrameListenerBridge, _p_MediaFrameListenerBridgeTo_p_RTPReceiver, 0, 0},  {&_swigt__p_FakeH264VideoEncoderWorkerFacade, _p_FakeH264VideoEncoderWorkerFacadeTo_p_RTPReceiver, 0, 0},{0, 0, 0, 0}};
@@ -3928,6 +3849,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_MediaFrameProducer,
   _swigc__p_MediaFrameProducerShared,
   _swigc__p_MedoozeFakeH264EncoderModule,
+  _swigc__p_QWORD,
   _swigc__p_RTPIncomingMediaStream,
   _swigc__p_RTPIncomingMediaStreamShared,
   _swigc__p_RTPReceiver,
