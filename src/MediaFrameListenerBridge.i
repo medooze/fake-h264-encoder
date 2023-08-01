@@ -16,11 +16,11 @@ struct MediaFrameListenerBridge :
 {
 	MediaFrameListenerBridge(TimeService& timeService, int ssrc);
 
-	DWORD numFrames;
-	DWORD numPackets;
-	DWORD numFramesDelta;
-	DWORD numPacketsDelta;
-	DWORD totalBytes;
+	QWORD numFrames;
+	QWORD numPackets;
+	QWORD numFramesDelta;
+	QWORD numPacketsDelta;
+	QWORD totalBytes;
 	DWORD bitrate;
 	DWORD minWaitedTime;
 	DWORD maxWaitedTime;
@@ -36,9 +36,9 @@ struct MediaFrameListenerBridge :
 
 SHARED_PTR_BEGIN(MediaFrameListenerBridge)
 {
-	MediaFrameListenerBridgeShared(TimeService& timeService, int ssrc, bool smooth = false)
+	MediaFrameListenerBridgeShared(TimeService& timeService, int ssrc)
 	{
-		return new std::shared_ptr<MediaFrameListenerBridge>(new MediaFrameListenerBridge(timeService, ssrc, smooth));
+		return new std::shared_ptr<MediaFrameListenerBridge>(new MediaFrameListenerBridge(timeService, ssrc));
 	}
 	SHARED_PTR_TO(RTPIncomingMediaStream)
 	SHARED_PTR_TO(RTPReceiver)
