@@ -25,6 +25,13 @@ struct MediaFrameListenerBridge :
 	DWORD minWaitedTime;
 	DWORD maxWaitedTime;
 	DWORD avgWaitedTime;
+	WORD width;
+	WORD height;
+	QWORD iframes;
+	QWORD iframesDelta;
+	QWORD bframes;
+	QWORD bframesDelta;
+	
 	void Update();
 	
 	void Stop();
@@ -32,6 +39,8 @@ struct MediaFrameListenerBridge :
 	//From MediaFrameProducer
 	void AddMediaListener(const MediaFrameListenerShared& listener);
 	void RemoveMediaListener(const MediaFrameListenerShared& listener);
+
+	void SetTargetBitrateHint(uint32_t targetBitrateHint);
 };
 
 SHARED_PTR_BEGIN(MediaFrameListenerBridge)
