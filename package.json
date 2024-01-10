@@ -1,6 +1,6 @@
 {
   "name": "h264-encoder-mockup",
-  "version": "1.11.14",
+  "version": "1.11.15",
   "description": "Video codecs for Media and RTMP servers",
   "main": "index.js",
   "scripts": {
