@@ -47,9 +47,9 @@ struct MediaFrameListenerBridge :
 
 SHARED_PTR_BEGIN(MediaFrameListenerBridge)
 {
-	MediaFrameListenerBridgeShared(TimeService& timeService, int ssrc)
+	MediaFrameListenerBridgeShared(TimeService& timeService, int ssrc, bool smooth = false)
 	{
-		return new std::shared_ptr<MediaFrameListenerBridge>(new MediaFrameListenerBridge(timeService, ssrc));
+		return new std::shared_ptr<MediaFrameListenerBridge>(new MediaFrameListenerBridge(timeService, ssrc, smooth));
 	}
 	SHARED_PTR_TO(RTPIncomingMediaStream)
 	SHARED_PTR_TO(RTPReceiver)
