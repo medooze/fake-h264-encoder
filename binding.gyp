@@ -3,6 +3,7 @@
 	{
 		'external_libmediaserver%'		: '<!(echo $LIBMEDIASERVER)',
 		'external_libmediaserver_include_dirs%'	: '<!(echo $LIBMEDIASERVER_INCLUDE)',
+		'medooze_media_server_src' : "<!(node -e \"require('medooze-media-server-src')\")",
 	},
 	"targets": 
 	[
@@ -52,32 +53,32 @@
 					{
 						"include_dirs" :
 						[
-							'media-server/include',
-							'media-server/src',
-							'media-server/ext/crc32c/include',
-							'media-server/ext/libdatachannels/src',
-							'media-server/ext/libdatachannels/src/internal',
+							'<(medooze_media_server_src)/include',
+							'<(medooze_media_server_src)/src',
+							'<(medooze_media_server_src)/ext/crc32c/include',
+							'<(medooze_media_server_src)/ext/libdatachannels/src',
+							'<(medooze_media_server_src)/ext/libdatachannels/src/internal',
 						],
 						"sources": 
 						[
-							"media-server/src/EventLoop.cpp",
-							"media-server/src/MediaFrameListenerBridge.cpp",
-							"media-server/src/rtp/DependencyDescriptor.cpp",
-							"media-server/src/rtp/RTPPacket.cpp",
-							"media-server/src/rtp/RTPPayload.cpp",
-							"media-server/src/rtp/RTPHeader.cpp",
-							"media-server/src/rtp/RTPHeaderExtension.cpp",
-							"media-server/src/rtp/LayerInfo.cpp",
-							"media-server/src/VideoLayerSelector.cpp",
-							"media-server/src/DependencyDescriptorLayerSelector.cpp",
-							"media-server/src/h264/h264depacketizer.cpp",
-							"media-server/src/vp8/vp8depacketizer.cpp",
-							"media-server/src/h264/H264LayerSelector.cpp",
-							"media-server/src/vp8/VP8LayerSelector.cpp",
-							"media-server/src/vp9/VP9PayloadDescription.cpp",
-							"media-server/src/vp9/VP9LayerSelector.cpp",
-							"media-server/src/vp9/VP9Depacketizer.cpp",
-							"media-server/src/av1/AV1Depacketizer.cpp",
+							"<(medooze_media_server_src)/src/EventLoop.cpp",
+							"<(medooze_media_server_src)/src/MediaFrameListenerBridge.cpp",
+							"<(medooze_media_server_src)/src/rtp/DependencyDescriptor.cpp",
+							"<(medooze_media_server_src)/src/rtp/RTPPacket.cpp",
+							"<(medooze_media_server_src)/src/rtp/RTPPayload.cpp",
+							"<(medooze_media_server_src)/src/rtp/RTPHeader.cpp",
+							"<(medooze_media_server_src)/src/rtp/RTPHeaderExtension.cpp",
+							"<(medooze_media_server_src)/src/rtp/LayerInfo.cpp",
+							"<(medooze_media_server_src)/src/VideoLayerSelector.cpp",
+							"<(medooze_media_server_src)/src/DependencyDescriptorLayerSelector.cpp",
+							"<(medooze_media_server_src)/src/h264/h264depacketizer.cpp",
+							"<(medooze_media_server_src)/src/vp8/vp8depacketizer.cpp",
+							"<(medooze_media_server_src)/src/h264/H264LayerSelector.cpp",
+							"<(medooze_media_server_src)/src/vp8/VP8LayerSelector.cpp",
+							"<(medooze_media_server_src)/src/vp9/VP9PayloadDescription.cpp",
+							"<(medooze_media_server_src)/src/vp9/VP9LayerSelector.cpp",
+							"<(medooze_media_server_src)/src/vp9/VP9Depacketizer.cpp",
+							"<(medooze_media_server_src)/src/av1/AV1Depacketizer.cpp",
 						],
   					        "conditions" : [
 								['OS=="mac"', {
