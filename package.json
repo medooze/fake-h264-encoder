@@ -8,7 +8,6 @@
     "swig": "swig -javascript -node -c++ src/fake-h264-encoder.i",
     "build": "node-gyp build --jobs=max",
     "install": "test -f build/Release/medooze-fake-h264-encoder.node || (node-gyp configure && node-gyp rebuild --jobs=max)",
-    "package": "tar cvzf build/medooze-fake-h264-encoder.tgz  `([ \"$(uname)\" = 'Darwin' ] && echo \"-s |^|medooze-fake-h264-encoder/|\") || echo \" --transform=flags=r;s|^|medooze-fake-h264-encoder/|\"` media-server/src/* media-server/include/* media-server/ext/libdatachannels/src/* media-server/ext/crc32c/* lib/* package.json index.js  binding.gyp  README.md src",
     "dist": "node-gyp configure && node-gyp build --jobs=max && mkdir -p dist && tar cvzf dist/medooze-fake-h264-encoder-`node -e 'console.log(require(\"./package.json\").version)'`.tgz `([ \"$(uname)\" = 'Darwin' ] && echo \"-s |^|medooze-fake-h264-encoder/|\") || echo \" --transform=flags=r;s|^|medooze-fake-h264-encoder/|\"` package.json index.js   README.md lib/* build/Release/medooze-fake-h264-encoder.node",
     "test": "tap tests/*.js --cov"
   },
@@ -29,5 +28,15 @@
   },
   "devDependencies": {
     "tap": "^16.3.2"
-  }
+  },
+  "peerDependencies": {
+    "medooze-media-server-src": "^1.0.0"
+  },
+  "files": [
+    "package.json",
+    "index.js",
+    "binding.gyp",
+    "README.md",
+    "src"
+  ]
 }
